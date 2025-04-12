@@ -1,11 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useState,useEffect } from "react";
 function Home() {
   const scrollToAbout = () => {
     const aboutSection = document.getElementById('about-section');
     aboutSection.scrollIntoView({ behavior: 'smooth' });
   };
+    
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    window.location.href = '/';
+  };
+  
   return (
     <div>
       {/* Navbar */}
@@ -18,11 +35,20 @@ function Home() {
             </button></li>
           <li><Link to="/contact" className="hover:text-blue-600">Contact Us</Link></li>
           <li><Link to="/blogs" className="hover:text-blue-600">Blogs</Link></li>
-          <li><Link to="/login" className="hover:text-blue-600">Login</Link></li>
+          <li>
+            {isLoggedIn ? (
+              <button onClick={handleLogout} className="hover:text-blue-600">
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="hover:text-blue-600">Login</Link>
+            )}
+          </li>
         </ul>
         <button className="bg-blue-600 text-white px-4 py-2 rounded">AVAILABLE FOR FREE</button>
       </nav>
-
+    
+  
       {/* Hero Section */}
       <header className="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16 px-8 flex flex-col md:flex-row items-center justify-center">
         <div className="md:w-1/2">

@@ -50,7 +50,8 @@ router.post("/generate-plan", async (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: "Failed to generate diet plan.",
-      error: error.message 
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });

@@ -41,10 +41,14 @@ const Nutrition = () => {
       <h1 className="text-3xl font-bold text-center mb-8">Indian Diet Planner</h1>
       
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
-          {error}
-        </div>
-      )}
+  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
+    <p className="font-bold">Error:</p>
+    <p>{error}</p>
+    {error.details && (
+      <pre className="text-xs mt-2">{error.details}</pre>
+    )}
+  </div>
+)}
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="lg:col-span-1">

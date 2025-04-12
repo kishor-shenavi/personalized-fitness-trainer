@@ -4,54 +4,59 @@ import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check for existing user in localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const token = localStorage.getItem('token');
+    if (token && !user) {
+      const verifyToken = async () => {
+        try {
+          const response = await fetch('http://localhost:5000/api/auth/me', {
+            headers: { 
+              'Authorization': `Bearer ${token}` 
+            }
+          });
+  
+          if (!response.ok) throw new Error('Failed to fetch user data');
+  
+          const data = await response.json();
+          setUser(data.user);
+        } catch (err) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
+      };
+      verifyToken();
     }
-    setLoading(false);
-  }, []);
-
-  const signIn = (userData) => {
+  }, [user]); // <-- Add user here
+  
+  const signIn = (userData, token) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
-    navigate('/nutrition');
-  };
-
-  const signUp = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    navigate('/nutrition');
+    localStorage.setItem('token', token);
+    navigate('/');
   };
 
   const signOut = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
-  const value = {
-    user,
-    signIn,
-    signUp,
-    signOut,
-    loading
-  };
+  return (
+    <AuthContext.Provider value={{ user, signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-// Custom hook to use auth context
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export function useAuth() {
+  return useContext(AuthContext);
+}
