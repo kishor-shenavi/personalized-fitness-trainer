@@ -43,6 +43,7 @@ function SignUp() {
       }
 
       localStorage.setItem('token', data.token);
+      console.log('Token stored:', data.token); // Verify token exists
       signIn(data.user);
 
     } catch (err) {

@@ -29,8 +29,24 @@ function Login() {
         throw new Error(data.message || 'Login failed');
       }
 
-      localStorage.setItem('token', data.token);
-      signIn(data.user);
+      localStorage.setItem('token',data.token);
+      console.log('Full response:', data);
+      //const token = localStorage.getItem('token'); // ✅ Must match
+console.log('Token received:', data.token);
+
+      //console.log('Token stored:', data.token); // Verify token exists
+       signIn(data.user, data.token);
+      // const signIn = (userData, token) => {
+      //   if (!token) {
+      //     console.warn('🚨 No token provided to signIn!');
+      //     return;
+      //   }
+      
+      //   setUser(userData);
+      //   localStorage.setItem('user', JSON.stringify(userData));
+      //   localStorage.setItem('token', token);
+      //   navigate('/');
+      // };
       
     } catch (err) {
       setError(err.message || 'An error occurred during login');

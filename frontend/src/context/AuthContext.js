@@ -36,13 +36,24 @@ export function AuthProvider({ children }) {
     }
   }, [user]); // <-- Add user here
   
+  // const signIn = (userData, token) => {
+  //   setUser(userData);
+  //   localStorage.setItem('user', JSON.stringify(userData));
+  //   localStorage.setItem('token', token);
+  //   navigate('/');
+  // };
   const signIn = (userData, token) => {
+    if (!token) {
+      console.warn('🚨 No token provided to signIn!');
+      return;
+    }
+  
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', token);
     navigate('/');
   };
-
+  
   const signOut = () => {
     setUser(null);
     localStorage.removeItem('user');
