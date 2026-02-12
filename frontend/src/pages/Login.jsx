@@ -39,10 +39,39 @@ function Login() {
     }
   };
 
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById('about-section');
+    aboutSection.scrollIntoView({ behavior: 'smooth' });
+  };
+
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#DEF4FC]">
+
+      <div className="bg-gradient-to-r from-[#00A8E8] via-[#007EA7] to-[#003459] absolute h-[625px] w-[1300px] right-[0px] top-[125px] rounded-l-[300px]"> </div>
+
+      <nav className=" text-black   flex justify-between items-center ">
+
+         {/* Logo */}
+         <div className="text-2xl font-bold  absolute top-[10px] left-[10px] ">
+         <div className="w-[100px] absolute top-[0px]">
+      <img src="/ProjectImages/logo.png"></img>
+     </div>
+         </div>
+      
+      {/* Navigation Links */}
+      <ul className="flex space-x-[75px] ml-[150px] text-xl  absolute top-[10px] right-[480px]">
+        <li><Link to="/" className="hover:text-[#007EA7]">Home</Link></li>
+        <li> <button onClick={scrollToAbout} className="hover:text-[#007EA7]">
+            About Us
+          </button></li>
+        <li><Link to="/contact" className="hover:text-[#007EA7]">Contact Us</Link></li>
+        <li><Link to="/blogs" className="hover:text-[#007EA7]">Blogs</Link></li>
+      </ul>
+      </nav>
+      <div className="bg-white p-6 rounded-[20px] shadow-lg w-96 relative z-5 w-[800px] left-[10px]">
+        <h2 className="text-xl font-semibold text-center">Enter your login credentials</h2>
+
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
             {error}
@@ -51,7 +80,7 @@ function Login() {
         
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Email</label>
+            <label className="block text-gray-700 mb-2">Email:</label>
             <input
               type="email"
               name="email"
@@ -61,8 +90,8 @@ function Login() {
               required
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">Password</label>
+          <div className="mt-4">
+            <label className="block ">Password</label>
             <input
               type="password"
               name="password"
@@ -76,7 +105,7 @@ function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full py-2 px-4 rounded-lg transition ${
+            className={`mt-4 bg-gradient-to-r from-[#00A8E8] via-[#007EA7] to-[#003459] text-white w-full p-2 rounded-md ${
               isLoading 
                 ? 'bg-blue-400 cursor-not-allowed'
                 : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -87,7 +116,7 @@ function Login() {
         </form>
         
         <p className="mt-4 text-center">
-          Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
+        Not registered? <Link to="/signup" className="text-[#007EA7] hover:underline">Create an account</Link>
         </p>
       </div>
     </div>

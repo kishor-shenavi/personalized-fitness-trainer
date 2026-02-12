@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PoseCard from '../components/PoseCard';
+import { useNavigate } from 'react-router-dom';
 
 function Flexibility() {
   const [selectedLevel, setSelectedLevel] = useState("basic");
@@ -9,6 +10,7 @@ function Flexibility() {
   const [poses, setPoses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // Explicit API base URL
   const API_BASE_URL = 'http://localhost:5000';
@@ -54,9 +56,32 @@ function Flexibility() {
   const togglePoseExpansion = (poseId) => {
     setExpandedPoseId(expandedPoseId === poseId ? null : poseId);
   };
+  const handleBackToHome = () => {
+    navigate('/');
+  };
 
   return (
-    <div className={`min-h-screen p-6 ${expandedPoseId !== null ? 'bg-gray-100' : 'bg-gradient-to-br from-blue-50 to-indigo-50'}`}>
+    <div className={`min-h-screen p-6 ${expandedPoseId !== null ? 'bg-gray-100' : 'bg-[#DEF4FC]'}`}>
+      <button
+              onClick={handleBackToHome}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors absolute top-[20px] left-[20px]"
+              aria-label="Back to home"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+            </button>
       {/* Error message */}
       {error && (
         <div className="max-w-6xl mx-auto mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
@@ -74,7 +99,7 @@ function Flexibility() {
 
       {/* Header and controls (hidden when pose expanded) */}
       <div className={`max-w-6xl mx-auto ${expandedPoseId !== null ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-        <h1 className="text-4xl font-bold text-center mb-6 text-indigo-800">Yoga Flexibility Poses</h1>
+        <h1 className="text-4xl font-bold text-center mb-6 text-[#003459]">Yoga Flexibility Poses</h1>
         
         <div className="mb-8">
           <div className="relative max-w-md mx-auto">
@@ -97,7 +122,7 @@ function Flexibility() {
               key={level}
               className={`px-6 py-2 rounded-full font-medium transition-all ${
                 selectedLevel === level
-                  ? "bg-indigo-600 text-white shadow-md"
+                  ? "bg-[#007EA7] text-white shadow-md"
                   : "bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50"
               }`}
               onClick={() => setSelectedLevel(level)}

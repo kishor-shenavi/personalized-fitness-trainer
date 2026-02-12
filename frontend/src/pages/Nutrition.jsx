@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import NutritionForm from '../components/NutritionForm';
 import WeekPlan from '../components/WeekPlan';
+import { useNavigate } from 'react-router-dom';
 
 const Nutrition = () => {
   const [dietPlan, setDietPlan] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [activeDay, setActiveDay] = useState(0);
+  const navigate = useNavigate();
 
   const handleSubmit = async (formData) => {
     try {
@@ -35,13 +37,43 @@ const Nutrition = () => {
       </div>
     );
   }
+  const handleBackToHome = () => {
+    navigate('/');
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Indian Diet Planner</h1>
+    <div className='bg-[#DEF4FC] w-full h-full'>
+      <button
+              onClick={handleBackToHome}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors absolute top-[20px] left-[20px]"
+              aria-label="Back to home"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+            </button>
+
+    <div className="container mx-auto px-4 py-8 bg-[#DEF4FC] w-full h-full">
+    <div className=' absolute right-[0px] bottom-[0px] w-[400px] h-[450px] rounded-l-[400px]'>
+      
+      <img src="/ProjectImages/nut4.png" alt="Not found!!" className="rounded-l-[200px] shadow-md h-[350px] w-[350px] absolute bottom-[0px] right-[0px]  "></img>
+      </div>
+
+      <h1 className="text-3xl font-bold text-center mb-8  text-[#003459]">Indian Diet Planner</h1>
       
       {error && (
-  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
     <p className="font-bold">Error:</p>
     <p>{error}</p>
     {error.details && (
@@ -67,6 +99,7 @@ const Nutrition = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

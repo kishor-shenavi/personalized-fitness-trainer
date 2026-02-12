@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 import axios from 'axios';
 
 const Contact = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,9 +13,9 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleBackToHome = () => {
-    navigate('/');
-  };
+  // const handleBackToHome = () => {
+  //   navigate('/');
+  // };
 
   const handleChange = (e) => {
     setFormData({
@@ -45,9 +46,27 @@ const Contact = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="flex flex-col  min-h-screen bg-[#DEF4FC]">
+      <div className="bg-gradient-to-r from-[#00A8E8] via-[#007EA7] to-[#003459] absolute h-[625px] w-[1300px]  top-[90px] left-[0px] rounded-r-[300px]">
+      </div>
+      <div className=" mx-auto px-4 py-12 max-w-4xl ">
+      <nav className=" text-black  flex justify-between items-center bg-gradient-to-r from-[#00A8E8] via-[#007EA7] to-[#003459] ">
+       {/* Logo */}
+       <div className="text-2xl font-bold  absolute top-[10px] left-[0px] ">
+       <div className="w-[100px] ">
+      <img src="/ProjectImages/logo.png"></img>
+     </div>
+       </div>
+            
+            {/* Navigation Links */}
+            <ul className="flex space-x-[75px] ml-[150px] text-xl  absolute top-[10px] right-[550px]">
+              <li><Link to="/" className="hover:text-[#007EA7]">Home</Link></li>
+              <li><Link to="/about" className="hover:text-[#007EA7]">About Us</Link></li>
+              <li><Link to="/blogs" className="hover:text-[#007EA7]">Blogs</Link></li>
+            </ul>
+            </nav>
       {/* Home Navigation Button */}
-      <button
+      {/* <button
         onClick={handleBackToHome}
         className="flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-6"
         aria-label="Back to home"
@@ -66,16 +85,16 @@ const Contact = () => {
             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
           />
         </svg>
-      </button>
+      </button> */}
       
-      <h1 className="text-3xl font-bold text-center mb-8">Contact Us</h1>
+      <h1 className="text-3xl font-bold text-center mb-8 mt-14 relative z-5">Contact Us</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-3">
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Name</label>
+              <label className="block text-black mb-2">Name</label>
               <input
                 type="text"
                 name="name"
@@ -87,7 +106,7 @@ const Contact = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Email</label>
+              <label className="block text-black mb-2">Email</label>
               <input
                 type="email"
                 name="email"
@@ -99,7 +118,7 @@ const Contact = () => {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 mb-2">Message</label>
+              <label className="block text-black mb-2">Message</label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -113,7 +132,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition ${
+              className={`w-full bg-gradient-to-r from-[#00A8E8] via-[#007EA7] to-[#003459] text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition ${
                 isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
               }`}
             >
@@ -144,7 +163,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="font-medium">Address</h3>
-                <p className="text-gray-600">Meta MorphFit, main road, trimurti chauk</p>
+                <p className="text-gray-600">MetaMorphFit, main road, trimurti chauk</p>
               </div>
             </div>
 
@@ -176,6 +195,7 @@ const Contact = () => {
             <p className="text-gray-600">Sunday: Closed</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

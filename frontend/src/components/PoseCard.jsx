@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
 const PoseCard = ({ 
   id,
@@ -12,6 +13,7 @@ const PoseCard = ({
   onClick 
 }) => {
   const [showVideo, setShowVideo] = useState(false);
+    const navigate = useNavigate();
 
   // Extract YouTube ID from URL
   const getYouTubeId = (url) => {
@@ -21,6 +23,10 @@ const PoseCard = ({
   };
 
   const videoId = getYouTubeId(video);
+
+  const handleBackToHome = () => {
+    navigate('/');
+  };
 
   return (
     <div 
@@ -48,10 +54,30 @@ const PoseCard = ({
       )}
 
       {isExpanded ? (
-        <div className="w-full h-full flex flex-col lg:flex-row">
+        <div className="w-full h-full flex flex-col lg:flex-row ">
+          <div className={`${showVideo ? 'hidden' : 'lg:w-1/2'} p-8 flex flex-col bg-gray-200`}>
           {/* Left Column - Pose Details */}
-          <div className={`${showVideo ? 'hidden' : 'lg:w-1/2'} p-8 flex flex-col`}>
-            <div className="flex-grow flex items-center justify-center mb-8">
+            <button
+              onClick={handleBackToHome}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors absolute top-[20px] left-[20px]"
+              aria-label="Back to home"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+            </button>
+            <div className="flex-grow flex items-center justify-center mb-8 ">
               <img
                 src={image}
                 alt={name}
@@ -66,7 +92,7 @@ const PoseCard = ({
                   e.stopPropagation();
                   setShowVideo(true);
                 }}
-                className="bg-indigo-600 text-white px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors text-xl"
+                className="bg-[#007EA7] text-white px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors text-xl"
               >
                 Show Video Tutorial
               </button>
@@ -97,7 +123,7 @@ const PoseCard = ({
           )}
 
           {/* Right Column - Steps */}
-          <div className={`${showVideo ? 'w-full' : 'lg:w-1/2'} bg-gray-50 p-8 overflow-y-auto`}>
+          <div className={`${showVideo ? 'w-full' : 'lg:w-1/2'}  p-8 overflow-y-auto bg-[#DEF4FC]`}>
             <h3 className="text-3xl font-semibold text-gray-700 mb-6 text-center lg:text-left">Steps:</h3>
             <ul className="list-decimal pl-8 space-y-4 text-gray-600 text-xl">
               {steps.map((step, i) => (

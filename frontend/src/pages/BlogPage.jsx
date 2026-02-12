@@ -76,10 +76,10 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-[#DEF4FC]">
       {selectedBlog ? (
-        <div className="max-w-4xl mx-auto">
-          <div className="flex gap-4 mb-6">
+        <div className="max-w-4xl mx-auto ">
+          <div className="flex gap-4 mb-6 ">
             <button
               onClick={handleBackToBlogs}
               className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
@@ -123,7 +123,7 @@ const BlogPage = () => {
           </div>
 
           <article className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-6 md:p-8">
+            <div className="p-6 md:p-8 ">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 {selectedBlog.title}
               </h1>
@@ -176,18 +176,18 @@ const BlogPage = () => {
             </svg>
           </button>
 
-          <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
+          <h1 className="text-4xl font-bold text-center  mb-12 text-[#003459]">
             Our Latest Articles
           </h1>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
             {blogs.map((blog) => (
               <div
                 key={blog._id}
                 onClick={() => handleBlogClick(blog._id)}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer "
               >
-                <div className="p-6">
+                <div className="p-6 ">
                   <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
                     {blog.title}
                   </h2>

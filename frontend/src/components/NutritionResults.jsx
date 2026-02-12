@@ -4,7 +4,7 @@ const NutritionResults = ({ plan }) => {
   if (!plan) return null;
  
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
+    <div className=" rounded-lg shadow-md p-6 mt-6">
       <h3 className="text-lg font-bold mb-4">Plan Summary</h3>
       <div className="space-y-3">
         <div className="flex justify-between">
